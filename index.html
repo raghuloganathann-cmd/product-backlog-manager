@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backlog Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <h1>Backlog Board</h1>
+    <p>Pin an idea, drag it toward done.</p>
+  </div>
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search cards..." aria-label="Search cards">
+    <select id="priorityFilter" aria-label="Filter by priority">
+      <option value="all">All priorities</option>
+      <option value="critical">Critical</option>
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+    <button class="btn-add" id="openAddBtn">+ New item</button>
+  </div>
+</header>
+
+<main id="board">
+  <section class="column" data-status="backlog">
+    <div class="column-head"><h2>Backlog</h2><span id="count-backlog">0</span></div>
+    <div class="card-list" id="list-backlog"></div>
+  </section>
+  <section class="column" data-status="todo">
+    <div class="column-head"><h2>To Do</h2><span id="count-todo">0</span></div>
+    <div class="card-list" id="list-todo"></div>
+  </section>
+  <section class="column" data-status="inprogress">
+    <div class="column-head"><h2>In Progress</h2><span id="count-inprogress">0</span></div>
+    <div class="card-list" id="list-inprogress"></div>
+  </section>
+  <section class="column" data-status="done">
+    <div class="column-head"><h2>Done</h2><span id="count-done">0</span></div>
+    <div class="card-list" id="list-done"></div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <form class="modal" id="itemForm">
+    <h2 id="modalTitle">New backlog item</h2>
+    <input type="hidden" id="itemId">
+
+    <div class="field">
+      <label for="itemTitle">Title</label>
+      <input type="text" id="itemTitle" required maxlength="80" placeholder="e.g. Add password reset flow">
+    </div>
+
+    <div class="field">
+      <label for="itemDesc">Description</label>
+      <textarea id="itemDesc" maxlength="300" placeholder="What needs to happen, and why"></textarea>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="itemPriority">Priority</label>
+        <select id="itemPriority">
+          <option value="critical">Critical</option>
+          <option value="high" selected>High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="itemPoints">Story points</label>
+        <select id="itemPoints">
+          <option>1</option><option>2</option><option selected>3</option>
+          <option>5</option><option>8</option><option>13</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="itemStatus">Column</label>
+      <select id="itemStatus">
+        <option value="backlog">Backlog</option>
+        <option value="todo">To Do</option>
+        <option value="inprogress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+      <button type="submit" class="btn-primary" id="saveBtn">Pin it</button>
+    </div>
+  </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
